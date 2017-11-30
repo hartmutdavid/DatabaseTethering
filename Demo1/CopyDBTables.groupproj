@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7D58578B-27D5-4A6C-A09B-2D0A47DD09D0}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Mobile\FMXClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Server\VCLServerDesktop.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FMXClient">
+        <MSBuild Projects="Mobile\FMXClient.dproj"/>
+    </Target>
+    <Target Name="FMXClient:Clean">
+        <MSBuild Projects="Mobile\FMXClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMXClient:Make">
+        <MSBuild Projects="Mobile\FMXClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VCLServerDesktop">
+        <MSBuild Projects="Server\VCLServerDesktop.dproj"/>
+    </Target>
+    <Target Name="VCLServerDesktop:Clean">
+        <MSBuild Projects="Server\VCLServerDesktop.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VCLServerDesktop:Make">
+        <MSBuild Projects="Server\VCLServerDesktop.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FMXClient;VCLServerDesktop"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FMXClient:Clean;VCLServerDesktop:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FMXClient:Make;VCLServerDesktop:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

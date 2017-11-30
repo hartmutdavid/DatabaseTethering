@@ -1,0 +1,168 @@
+object FormFMXClient: TFormFMXClient
+  Left = 0
+  Top = 0
+  Caption = 'Tethering Client Test'
+  ClientHeight = 628
+  ClientWidth = 755
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  DesignerMasterStyle = 2
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Position.Y = 584.000000000000000000
+    Size.Width = 755.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 12
+    object btnSync: TButton
+      Align = Right
+      Margins.Right = 5.000000000000000000
+      Position.X = 530.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'listitemdeletebutton'
+      TabOrder = 1
+      Text = 'Get Tables ...'
+      OnClick = btnSyncClick
+    end
+    object btnResetlDB: TButton
+      Align = Left
+      Margins.Right = 5.000000000000000000
+      Position.Y = 7.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'listitembutton'
+      TabOrder = 0
+      Text = 'Reset Client SQLite-File'
+      OnClick = btnResetlDBClick
+    end
+  end
+  object ToolBar1: TToolBar
+    Size.Width = 755.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 14
+    object Label1: TLabel
+      Align = Client
+      Size.Width = 755.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = 'Tethering Client to copy DB-Tables'
+    end
+  end
+  object txaProt: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    StyledSettings = [Family, Style, FontColor]
+    TextSettings.Font.Size = 9.000000000000000000
+    Align = Client
+    Size.Width = 755.000000000000000000
+    Size.Height = 540.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 48
+    Viewport.Width = 747.000000000000000000
+    Viewport.Height = 532.000000000000000000
+  end
+  object TetherClientManager: TTetheringManager
+    OnEndManagersDiscovery = TetherClientManagerEndManagersDiscovery
+    OnEndProfilesDiscovery = TetherClientManagerEndProfilesDiscovery
+    OnPairedToRemote = TetherClientManagerPairedToRemote
+    OnRequestManagerPassword = TetherClientManagerRequestManagerPassword
+    OnUnPairManager = TetherClientManagerUnPairManager
+    OnRemoteManagerShutdown = TetherClientManagerRemoteManagerShutdown
+    Text = '???'
+    Enabled = False
+    AllowedAdapters = 'Network'
+    Left = 104
+    Top = 456
+  end
+  object TetherClientProfile: TTetheringAppProfile
+    Manager = TetherClientManager
+    Text = '???'
+    Group = 'TetherTestGroup'
+    OnDisconnect = TetherClientProfileDisconnect
+    OnAfterConnectProfile = TetherClientProfileAfterConnectProfile
+    Actions = <>
+    Resources = <>
+    OnResourceReceived = TetherClientProfileResourceReceived
+    Left = 224
+    Top = 456
+  end
+  object ActionList1: TActionList
+    Left = 64
+    Top = 152
+    object actGetList: TAction
+      Text = 'Get List'
+    end
+  end
+  object FDGUIxWaitCursor: TFDGUIxWaitCursor
+    Provider = 'FMX'
+    ScreenCursor = gcrHourGlass
+    Left = 384
+    Top = 88
+  end
+  object FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink
+    Left = 384
+    Top = 152
+  end
+  object bmWriter: TFDBatchMoveSQLWriter
+    Connection = Database
+    Left = 560
+    Top = 240
+  end
+  object bmTransfer: TFDBatchMove
+    Reader = bmReader
+    Writer = bmWriter
+    Options = [poIdentityInsert]
+    Mappings = <>
+    LogFileName = 'Data.log'
+    Left = 480
+    Top = 240
+  end
+  object bmReader: TFDBatchMoveDataSetReader
+    Left = 392
+    Top = 240
+  end
+  object Database: TFDConnection
+    ConnectionName = 'SQLiteDB'
+    Params.Strings = (
+      'DriverID=SQLite')
+    FormatOptions.AssignedValues = [fvMapRules]
+    FormatOptions.OwnMapRules = True
+    FormatOptions.MapRules = <
+      item
+        SourceDataType = dtDateTimeStamp
+        TargetDataType = dtDateTime
+      end>
+    Connected = True
+    LoginPrompt = False
+    Left = 520
+    Top = 144
+  end
+  object FDStanStorageBinLink: TFDStanStorageBinLink
+    Left = 464
+    Top = 329
+  end
+  object tblSQLite: TFDTable
+    Connection = Database
+    Left = 584
+    Top = 312
+  end
+  object FDStanStorageXMLLink: TFDStanStorageXMLLink
+    Left = 464
+    Top = 440
+  end
+  object FDStanStorageJSONLink: TFDStanStorageJSONLink
+    Left = 464
+    Top = 384
+  end
+end
