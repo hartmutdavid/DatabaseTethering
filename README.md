@@ -17,7 +17,7 @@ The tethering adapter is Network. The stream type is binary.
 ## Demo2
 
 The tethering adapter is Network. 
-In addition, the stream type (bin&auml;r, JSON, XML) and a compression rate can be selected.
+In addition, the stream type (binary, JSON, XML) and a compression rate can be selected.
 
 ## Demo3
 
@@ -29,6 +29,6 @@ SELECT p.ProductID as PID, p.ProductName as PName, p.UnitPrice * p.UnitsInStock 
   FROM Products p left join Categories c on p.CategoryID = c.CategoryID
 ```  
 The tethering adapter is selectable, either as a network or as Bluetooth. 
-In addition, the stream type (bin&auml;r, JSON, XML) and a compression rate can be selected.
+In addition, the stream type (binary, JSON, XML) and a compression rate can be selected.
 
 
